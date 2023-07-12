@@ -1,17 +1,39 @@
 {
-  "name": "my-storybook",
-  "private": true,
-  "version": "0.0.0",
+  "name": "acoa-my-storybook",
+  "private": false,
+  "version": "0.1.0",
+  "license": "MIT",
+  "typings": "dist/main.d.ts",
+  "main": "dist/main.js",
+  "repository": {
+    "url": "https://github.com/osorioadrian/storybook",
+    "type": "git"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "typescript": ">=4.0.0"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run clean && tsc && npm run copy-files",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "clean": "rimraf dist/",
+    "copy-files": "copyfiles -u 1 src/**/*.css dist/"
   },
   "dependencies": {
-    "react": "^18.2.0",
+    "react": ">=16",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
@@ -25,9 +47,20 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "copyfiles": "^2.4.1",
     "prop-types": "^15.8.1",
+    "rimraf": "^5.0.1",
+    "semantic-release": "^21.0.7",
     "storybook": "^7.0.26",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"
-  }
+  },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/npm",
+    "@semantic-release/git"
+  ]
 }
